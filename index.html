@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HARU Web</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #0d1117;
+      --bg2: #151c27;
+      --bg3: #1a2233;
+      --border: #243044;
+      --blue: #38bdf8;
+      --blue-dim: #0c2030;
+      --blue-mid: #0ea5e9;
+      --text: #e2e8f0;
+      --sub: #7a90aa;
+      --light: #3a4f68;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.8;
+      text-align: center;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(13, 17, 23, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 54px;
+    }
+
+    .nav-logo {
+      font-family: 'DotGothic16', monospace;
+      font-size: 1.05rem;
+      letter-spacing: 0.1em;
+      color: var(--blue);
+    }
+
+    .hero {
+      padding: 7rem 2rem 5rem;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      font-family: 'DotGothic16', monospace;
+      font-size: 0.7rem;
+      color: var(--blue);
+      border: 1px solid var(--blue);
+      padding: 0.25rem 0.8rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 1.5rem;
+      background: var(--blue-dim);
+    }
+
+    .hero h1 {
+      font-family: 'DotGothic16', monospace;
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 400;
+      line-height: 1.4;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.25rem;
+      color: var(--text);
+    }
+
+    .hero h1 .accent { color: var(--blue); }
+
+    .hero p {
+      color: var(--sub);
+      font-size: 0.92rem;
+      max-width: 400px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.9;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--blue);
+      color: #051018;
+      padding: 0.75rem 1.75rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      font-family: 'DotGothic16', monospace;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.85;
+      transform: translateY(-1px);
+    }
+
+    .btn-primary svg { width: 14px; height: 14px; fill: #051018; }
+
+    .divider {
+      max-width: 600px;
+      margin: 0 auto;
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+
+    section {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+
+    .section-label {
+      font-family: 'DotGothic16', monospace;
+      font-size: 0.7rem;
+      color: var(--blue);
+      letter-spacing: 0.18em;
+      margin-bottom: 0.5rem;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin-bottom: 1.25rem;
+      letter-spacing: 0.02em;
+    }
+
+    .playlist-wrap {
+      margin-top: 1.75rem;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      background: var(--bg2);
+    }
+
+    .playlist-wrap iframe {
+      display: block;
+      width: 100%;
+      height: 420px;
+      border: none;
+    }
+
+    .playlist-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.9rem;
+      background: var(--bg3);
+      border-top: 1px solid var(--border);
+      font-family: 'DotGothic16', monospace;
+      font-size: 0.75rem;
+      color: var(--sub);
+      letter-spacing: 0.06em;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .playlist-link:hover {
+      color: var(--blue);
+      background: var(--blue-dim);
+    }
+
+    .playlist-link svg { width: 13px; height: 13px; fill: currentColor; }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1.75rem;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 1.25rem;
+      border: 1px solid var(--border);
+      background: var(--bg2);
+      font-size: 0.85rem;
+      color: var(--sub);
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+      text-align: left;
+    }
+
+    .contact-link:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+      background: var(--blue-dim);
+    }
+
+    .contact-link svg { width: 15px; height: 15px; fill: currentColor; flex-shrink: 0; }
+    .contact-link span { flex: 1; }
+    .contact-arrow {
+      font-size: 0.7rem;
+      color: var(--light);
+      font-family: 'DotGothic16', monospace;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      font-family: 'DotGothic16', monospace;
+      font-size: 0.72rem;
+      color: var(--light);
+      letter-spacing: 0.08em;
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 0 1.25rem; }
+      .nav-links { right: 1.25rem; gap: 1.2rem; }
+      .hero h1 { font-size: 1.6rem; }
+      .playlist-wrap iframe { height: 260px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <span class="nav-logo">HARU Web</span>
+  </nav>
+
+  <div class="hero">
+    <h1>ようこそ、<span class="accent">HARU Web</span>へ！</h1>
+    <a href="https://www.youtube.com/@haru_minecraft" target="_blank" class="btn-primary">
+      <svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z" fill="#FF0000"/><polygon points="9.545,15.568 15.818,12 9.545,8.432" fill="#ffffff"/></svg>
+      YouTubeで見る
+    </a>
+  </div>
+
+  <hr class="divider">
+
+  <section id="about">
+    <img src="img/icon.png" alt="HARU Web アイコン" style="width:64px;height:64px;border-radius:50%;object-fit:cover;margin-bottom:1.25rem;">
+    <h2>チャンネルについて</h2>
+    <p style="color:var(--sub);font-size:0.92rem;line-height:1.95;text-align:left;">マインクラフトをメインに、ゲーム実況動画を投稿しています。</p>
+  </section>
+
+  <hr class="divider">
+
+  <section id="videos">
+    <p class="section-label">// VIDEOS</p>
+    <h2>最新の動画</h2>
+    <div class="playlist-wrap">
+      <iframe
+        src="https://www.youtube.com/embed/videoseries?list=PLgEhL0VdhEGOobZ4YawTucqizlCLBBpTD"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        loading="lazy"
+      ></iframe>
+      <a href="https://www.youtube.com/playlist?list=PLgEhL0VdhEGOobZ4YawTucqizlCLBBpTD" target="_blank" class="playlist-link">
+        <svg viewBox="0 0 24 24" width="16" height="16" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z" fill="#FF0000"/><polygon points="9.545,15.568 15.818,12 9.545,8.432" fill="#ffffff"/></svg>
+        プレイリストをすべて見る ↗
+      </a>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section id="contact">
+    <p class="section-label">// CONTACT</p>
+    <h2>リンク</h2>
+    <div class="contact-links">
+      <a href="https://www.youtube.com/@haru_minecraft" target="_blank" class="contact-link">
+        <svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z" fill="#FF0000"/><polygon points="9.545,15.568 15.818,12 9.545,8.432" fill="#ffffff"/></svg>
+        <span>YouTube — @haru_minecraft</span>
+        <span class="contact-arrow">↗</span>
+      </a>
+    </div>
+  </section>
+
+  <footer>© 2025 HARU Web</footer>
+
+</body>
+</html>
